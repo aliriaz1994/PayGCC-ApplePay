@@ -1,0 +1,26 @@
+<?php $jsonHelper = $this->helper('\Magento\Framework\Json\Helper\Data');?>
+<?php $_info = $this->getInfo();?>
+<dl class="payment-method">
+    <dt class="title"><?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?></dt>
+    <dd>
+        <?php
+        if ($_info->getAdditionalInformation('payment_additional_info')):
+            $paymentInfo = $jsonHelper->jsonDecode($_info->getAdditionalInformation('payment_additional_info'));
+            ?>
+
+            <?php if (isset($paymentInfo['number'])):?>
+            Card number:<?php echo $paymentInfo['number']?><br/>
+        <?php endif;?>
+            <?php if (isset($paymentInfo['tnx_id'])):?>
+            Transaction Id:  <?php echo $paymentInfo['tnx_id']?><br/>
+        <?php endif;?>
+            <?php if (isset($paymentInfo['receipt'])):?>
+            Receipt Id:  <?php echo $paymentInfo['receipt']?><br/>
+        <?php endif;?>
+            <?php if (isset($paymentInfo['order_status'])):?>
+            Payment Status:  <?php echo $paymentInfo['order_status']?><br/>
+        <?php endif;?>
+
+        <?php endif;?>
+    </dd>
+</dl>

@@ -1,0 +1,56 @@
+<?php $jsonHelper = $this->helper('\Magento\Framework\Json\Helper\Data');?>
+<?php $_info = $this->getInfo();?>
+<div><?php echo $block->escapeHtml($block->getMethod()->getTitle()) ?></div>
+
+
+<table class="data-table admin__table-secondary">
+    <?php
+    if ($_info->getAdditionalInformation('payment_additional_info')):
+        $paymentInfo = $jsonHelper->jsonDecode($_info->getAdditionalInformation('payment_additional_info'));
+        ?>
+
+        <?php if (isset($paymentInfo['Paid_by'])):?>
+        <tr>
+            <th>Paid By: </th>
+            <td><?php echo $paymentInfo['Paid_by']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['created_at'])):?>
+        <tr>
+            <th>Paid At: </th>
+            <td><?php echo $paymentInfo['created_at']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['tnx_id'])):?>
+        <tr>
+            <th>Transaction Id: </th>
+            <td> <?php echo $paymentInfo['tnx_id']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['order_id']) && $paymentInfo['order_id']!=""):?>
+        <tr>
+            <th>Order Id: </th>
+            <td> <?php echo $paymentInfo['order_id']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['authorizationCode']) && $paymentInfo['authorizationCode']!=""):?>
+        <tr>
+            <th>Authorization Code: </th>
+            <td> <?php echo $paymentInfo['authorizationCode']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['invoice_id']) && $paymentInfo['invoice_id']!=""):?>
+        <tr>
+            <th>Invoice ID: </th>
+            <td> <?php echo $paymentInfo['invoice_id']?></td>
+        </tr>
+    <?php endif;?>
+        <?php if (isset($paymentInfo['status'])):?>
+        <tr>
+            <th>Payment Status: </th>
+            <td> <?php echo $paymentInfo['status']?></td>
+        </tr>
+    <?php endif;?>
+
+    <?php endif;?>
+</table>
